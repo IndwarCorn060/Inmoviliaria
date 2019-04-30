@@ -60,8 +60,8 @@ public class Vista extends JPanel{
 	private void crearCromponentesPanel1() {
 		//TextField
 		this.p1codigo = new JTextField(6);
-		this.p1precio = new JTextField("0",10);
-		this.p1superficie = new JTextField("0",6);
+		this.p1precio = new JTextField(10);
+		this.p1superficie = new JTextField(6);
 		this.p1direccion = new JTextField(50);
 		//TextArea
 		this.p1descripcion = new JTextArea(4,50);
@@ -69,7 +69,6 @@ public class Vista extends JPanel{
 		this.p1descripcionScroll = new JScrollPane(this.p1descripcion);
 		//ComboBox
 		this.p1tipoPropiedad = new JComboBox<EnumTipoPropiedad>(EnumTipoPropiedad.values());
-		this.p1tipoPropiedad.setSelectedItem(EnumTipoPropiedad.FINCA);
 		//JLabel
 		this.p1etqtCodigo = new JLabel("Codigo:");
 		this.p1etqtTipoPropiedad = new JLabel("TipoPropiedad:");
@@ -82,11 +81,11 @@ public class Vista extends JPanel{
 	private void crearCromponentesPanel2() {
 		//ComboBox
 		this.p2tipoVivienda = new JComboBox<EnumTipoVivienda>(EnumTipoVivienda.values());
-		String[] numeroDormitorios = {"0","1","2","3","4","5","6","7","8","9"};
 		this.p2tipoVivienda.setEnabled(false);
+		String[] numeroDormitorios = {"0","1","2","3","4","5","6","7","8","9"};
 		this.p2numeroDormitorios = new JComboBox<String>(numeroDormitorios);
-		String[] numeroBanos = {"0","1","2","3","4","5","6","7","8","9"};
 		this.p2numeroDormitorios.setEnabled(false);
+		String[] numeroBanos = {"0","1","2","3","4","5","6","7","8","9"};
 		this.p2numeroBanos = new JComboBox<String>(numeroBanos);
 		this.p2numeroBanos.setEnabled(false);
 		//JLabel
@@ -105,13 +104,10 @@ public class Vista extends JPanel{
 		this.p3TipoTerreno = new JComboBox<EnumTipoTerreno>(EnumTipoTerreno.values());
 		//RadioButton
 		this.p3SEsi = new JRadioButton("Si");
-		this.p3SEsi.setSelected(true);
 		this.p3SEno = new JRadioButton("No");
 		this.p3SAsi = new JRadioButton("Si");
-		this.p3SAsi.setSelected(true);
 		this.p3SAno = new JRadioButton("No");
 		this.p3DVsi = new JRadioButton("Si");
-		this.p3DVsi.setSelected(true);
 		this.p3DVno = new JRadioButton("No");
 		//ButtonGroup
 		this.p3SE = new ButtonGroup();
@@ -140,8 +136,25 @@ public class Vista extends JPanel{
 		this.crearPaneles();
 	}
 	
+	public void iniciarDefecto() {
+		this.p1codigo.setText("0");
+		this.p1precio.setText("0");
+		this.p1superficie.setText("0");
+		this.p1direccion.setText(null);
+		this.p1descripcion.setText(null);
+		this.p1tipoPropiedad.setSelectedItem(EnumTipoPropiedad.FINCA);
+		this.p2tipoVivienda.setSelectedIndex(0);
+		this.p2numeroDormitorios.setSelectedIndex(0);
+		this.p2numeroBanos.setSelectedIndex(0);
+		this.p3TipoTerreno.setSelectedIndex(0);
+		this.p3SEsi.setSelected(true);
+		this.p3SAsi.setSelected(true);
+		this.p3DVsi.setSelected(true);
+	}
+	
 	public Vista() {
 		this.crearComponentes();
+		this.iniciarDefecto();
 		this.add(this.panel);
 			this.panel.add(this.panel1);
 				this.panel1.add(this.panel1_1);

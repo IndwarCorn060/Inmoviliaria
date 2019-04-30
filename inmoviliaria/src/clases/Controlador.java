@@ -35,34 +35,50 @@ public class Controlador implements ActionListener, ItemListener, FocusListener 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==this.mivista.getP4GuardarPropiedad()) {
-			//cod tipoPropiedad direccion superficie descripcion precio
-			Propiedad aux = new Propiedad(Integer.parseInt(this.mivista.getP1codigo().getText()), 
-											(EnumTipoPropiedad) this.mivista.getP1tipoPropiedad().getSelectedItem(), 
-											this.mivista.getP1direccion().getText(), 
-											Float.parseFloat(this.mivista.getP1superficie().getText()), 
-											this.mivista.getP1descripcion().getText(), 
-											Float.parseFloat(this.mivista.getP1precio().getText()));
-			if(this.mivista.getP1tipoPropiedad().getSelectedItem().equals(EnumTipoPropiedad.FINCA)) {
-				//propiedad tipoTerreno electricidad agua vivienda
-				this.lista.añadePropiedad(new Fincas(aux, 
-													(EnumTipoTerreno) this.mivista.getP3TipoTerreno().getSelectedItem(), 
-													this.mivista.getP3SEsi().isSelected(), 
-													this.mivista.getP3SAsi().isSelected(), 
-													this.mivista.getP3DVsi().isSelected()));
+			if(this.lista.buscarCod(Integer.parseInt((this.mivista.getP1codigo().getText())))) {
+				JOptionPane.showMessageDialog(null, "Este codigo de propiedad ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+				this.mivista.getP1codigo().setText("0");
 			}
-			else if(this.mivista.getP1tipoPropiedad().getSelectedItem().equals(EnumTipoPropiedad.VIVIENDA)) {
-				//propiedad tipoVivienda numBanos numDormitorios
-				this.lista.añadePropiedad(new Vivienda(aux, 
-														(EnumTipoVivienda) this.mivista.getP2tipoVivienda().getSelectedItem(), 
-														Integer.parseInt(this.mivista.getP2numeroBanos().getSelectedItem()), 
-														Integer.parseInt(this.mivista.getP2numeroDormitorios().getSelectedItem())));
+			else {
+				//cod tipoPropiedad direccion superficie descripcion precio
+				Propiedad aux = new Propiedad(Integer.parseInt(this.mivista.getP1codigo().getText()), 
+												(EnumTipoPropiedad) this.mivista.getP1tipoPropiedad().getSelectedItem(), 
+												this.mivista.getP1direccion().getText(), 
+												Float.parseFloat(this.mivista.getP1superficie().getText()), 
+												this.mivista.getP1descripcion().getText(), 
+												Float.parseFloat(this.mivista.getP1precio().getText()));
+				if(this.mivista.getP1tipoPropiedad().getSelectedItem().equals(EnumTipoPropiedad.FINCA)) {
+					//propiedad tipoTerreno electricidad agua vivienda
+					aux = new Fincas(aux, 
+							(EnumTipoTerreno) this.mivista.getP3TipoTerreno().getSelectedItem(), 
+							this.mivista.getP3SEsi().isSelected(), 
+							this.mivista.getP3SAsi().isSelected(), 
+							this.mivista.getP3DVsi().isSelected());
+				}
+				else if(this.mivista.getP1tipoPropiedad().getSelectedItem().equals(EnumTipoPropiedad.VIVIENDA)) {
+					//propiedad tipoVivienda numBanos numDormitorios
+					aux = new Vivienda(aux, 
+							(EnumTipoVivienda) this.mivista.getP2tipoVivienda().getSelectedItem(), 
+							Integer.parseInt((String)this.mivista.getP2numeroBanos().getSelectedItem()), 
+							Integer.parseInt((String)this.mivista.getP2numeroDormitorios().getSelectedItem()));
+				}
+				//System.out.println(aux);
+				System.out.println(this.lista.añadePropiedad(aux));
+				JOptionPane.showMessageDialog(null, aux.toString(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+				System.out.println(this.lista.toString());
 			}
 		}
 		else if(e.getSource()==this.mivista.getP4BorrarPropiedad()) {
-			
+			if(this.lista.borra(Integer.parseInt((this.mivista.getP1codigo().getText())))) {
+				JOptionPane.showMessageDialog(null, "Propiedad borrada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+				this.mivista.getP1codigo().setText("0");
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Este codigo no corresponde a ninguna propiedad", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if(e.getSource()==this.mivista.getP4LimpiarFormulario()) {
-			
+			this.mivista.iniciarDefecto();
 		}
 	}
 
@@ -93,19 +109,18 @@ public class Controlador implements ActionListener, ItemListener, FocusListener 
 		// TODO Auto-generated method stub
 		if(e.getSource()==this.mivista.getP1codigo()) {
 			try {
-				if(this.lista.buscarCod(Integer.parseInt((this.mivista.getP1codigo().getText())))) {
-					JOptionPane.showMessageDialog(null, "Este codigo de propiedad ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-				}
+				Integer.parseInt((this.mivista.getP1codigo().getText()));
 			}catch(Exception exception) {
 				JOptionPane.showMessageDialog(null, "Codigo Erroneo", "Error", JOptionPane.ERROR_MESSAGE);
+				this.mivista.getP1codigo().setText("0");
 			}
-			this.mivista.getP1codigo().setText(null);
 		}
 		else if(e.getSource()==this.mivista.getP1precio()) {
 			try {
 				Float.parseFloat((this.mivista.getP1precio().getText()));
 			}catch(Exception exception) {
 				JOptionPane.showMessageDialog(null, "Precio Erroneo", "Error", JOptionPane.ERROR_MESSAGE);
+				this.mivista.getP1precio().setText("0");
 			}
 		}
 		else if(e.getSource()==this.mivista.getP1superficie()) {
@@ -113,6 +128,7 @@ public class Controlador implements ActionListener, ItemListener, FocusListener 
 				Float.parseFloat((this.mivista.getP1superficie().getText()));
 			}catch(Exception exception) {
 				JOptionPane.showMessageDialog(null, "Superficie Erronea", "Error", JOptionPane.ERROR_MESSAGE);
+				this.mivista.getP1superficie().setText("0");
 			}
 		}
 	}

@@ -14,8 +14,8 @@ public class Vivienda extends Propiedad {
 		this.numDorm=numDorm;
 	}
 	
-	public Vivienda(Propiedad propiedad, EnumTipoVivienda tipoVivienda, int numBaños, int numDorm) {
-		super(propiedad);
+	public Vivienda(Propiedad pro, EnumTipoVivienda tipoVivienda, int numBaños, int numDorm) {
+		super(pro.getCodigo(),pro.getTipo(),pro.getDireccion(),pro.getMetrosCuadrados(),pro.getDescripcion(),pro.getPrecio());
 		this.tipoVivienda=tipoVivienda;
 		this.numBaños=numBaños;
 		this.numDorm=numDorm;
@@ -47,7 +47,10 @@ public class Vivienda extends Propiedad {
 	
 	@Override
 	public String toString() {
-		return super.toString()+"\n\t tipo de vivienda: "+this.getTipoVivienda();
+		return super.toString()+
+					"\n\ttipo de vivienda: "+this.getTipoVivienda()+
+					"\n\tnumero de dormitorios: "+this.getNumDorm()+
+					"\n\tnumero de banos: "+this.getNumBaños();
 	}
 
 }

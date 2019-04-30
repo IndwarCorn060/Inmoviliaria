@@ -20,15 +20,6 @@ public class Propiedad implements Comparable<Propiedad>{
 		this.descripcion=descripcion;
 		this.precio=precio;
 	}
-	
-	public Propiedad(Propiedad pr){
-		this.codigo=pr.getCodigo();
-		this.tipo=pr.getTipo();
-		this.direccion=pr.getDireccion();
-		this.metrosCuadrados=pr.getMetrosCuadrados();
-		this.descripcion=pr.getDescripcion();
-		this.precio=pr.getPrecio();
-	}
 
 	public int getCodigo() {
 		return codigo;

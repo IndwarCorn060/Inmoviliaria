@@ -16,8 +16,8 @@ public class Fincas extends Propiedad {
 		this.vivienda=vivienda;
 	}
 	
-	public Fincas(Propiedad propiedad, EnumTipoTerreno tipoTerreno, boolean luz, boolean agua, boolean vivienda) {
-		super(propiedad);
+	public Fincas(Propiedad pro, EnumTipoTerreno tipoTerreno, boolean luz, boolean agua, boolean vivienda) {
+		super(pro.getCodigo(),pro.getTipo(),pro.getDireccion(),pro.getMetrosCuadrados(),pro.getDescripcion(),pro.getPrecio());
 		this.tipoTerreno=tipoTerreno;
 		this.luz=luz;
 		this.agua=agua;
@@ -64,12 +64,6 @@ public class Fincas extends Propiedad {
 				"\n\tAgua: "+((this.agua)?"Si":"No")+
 				"\n\tVivienda: "+((this.vivienda)?"Si":"No")
 				;
-	}
-	
-	@Override
-	public int compareTo(Propiedad o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
